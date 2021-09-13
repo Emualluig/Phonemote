@@ -2,8 +2,8 @@
  Control desktop applications from your phone
 
 There are two parts of Phonemote. 
- - PhonemoteDesktop which interops with many different desktop programs.
- - PhonemoteMobile allows users to control desktop program via a phone by connecting to PhonemoteDesktop.
+ - PhonemoteDesktop which interops with many different desktop programs (Backend in C#, frontend in HTML+JS+CSS).
+ - PhonemoteMobile allows users to control desktop program via a phone by connecting to PhonemoteDesktop (React app).
 
 ### TODO list:
 
