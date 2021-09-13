@@ -12,11 +12,15 @@ namespace PhonemoteDesktop
     {
         private Dictionary<string, PowerPoint.Presentation> OpenPowerPoints = new Dictionary<string, PowerPoint.Presentation>();
 
-        public bool Loaded;
+        public bool Loaded { get; }
+
+        public int TotalPowerPoints { get; }
+
+        public bool IsApplicationOpen { get; }
 
         private PowerPoint.Application PowerPointApplication = null;
 
-        private System.Timers.Timer timer;
+        private System.Timers.Timer timer = null;
 
         private void GetAllOpenPresentations() 
         {
