@@ -18,3 +18,15 @@ There are two parts of Phonemote.
 - [ ] Websocket client to interact with PhonemoteDesktop
 - [ ] View changes depending on current interop
 - [ ] Switch focus between differences instances of program and other programs
+
+### Requirements:
+
+Only works on Windows
+
+Requires Assemblies (office, powerpoint, etc.) for certain interops to work.
+Currently requires:
+ - Powerpoint Interop:
+   - Interop.Microsoft.Office.Core
+   - Interop.Microsoft.Office.Interop.PowerPoint
+   - office.dll (Found in GAC_MSIL)
+
