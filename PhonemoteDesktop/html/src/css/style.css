@@ -1,0 +1,94 @@
+
+body {
+    margin: 0px;
+    background-color: floralwhite;
+}
+
+.tab-bar {
+    bottom: 0px;
+    height: 200px;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 10;
+}
+
+.tab {
+    float: left;
+    width: 50%;
+    height: inherit;
+}
+
+.tab.active {
+
+}
+
+.tab.inactive {
+    box-sizing: border-box;
+    border-top: 2px solid gray;
+    background-color: whitesmoke;
+}
+
+.tab-content {
+    box-sizing: border-box;
+    padding: 50px;
+    height: 100%;
+    width: 100%;
+}
+
+.open-page {
+    height: 100%;
+    display:block;
+    margin:auto;
+    cursor: pointer;
+}
+
+.content {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: large;
+}
+
+.success {
+    height: 300px;
+    width: 100%;
+}
+
+.content p {
+    text-align: center;
+}
+
+.examples {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: 1px solid gray;
+    background-color: whitesmoke;
+}
+
+.examples legend {
+    border: 1px solid gray;
+    background-color: whitesmoke;
+}
+
+.button {
+    float: left;
+    width: 25%;
+    height: 100px;
+}
+.result {
+    float: left;
+    width: 75%;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button button {
+    height: 100%;
+    width: 100%;
+}

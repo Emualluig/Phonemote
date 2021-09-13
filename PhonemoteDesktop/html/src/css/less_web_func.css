@@ -1,0 +1,21 @@
+/*
+    This class stops selection of text to better simulate a native application
+*/
+.no-select {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*
+    This class helps the function disableDrag() to stop certain elements from being draggable
+    Note: the js function is required as these css properties might not be implemented/working
+*/
+.no-drag {
+    -webkit-user-drag: none;
+    /*-khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;*/
+}

@@ -1,0 +1,16 @@
+{
+  "name": "packer",
+  "version": "1.0.0",
+  "description": "Here goes your build code",
+  "scripts": {
+    "build": "node ./build-scripts/inline-minify.js && npm run generate-resources",
+    "generate-resources": "node ./build-scripts/generateResources.js"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "html-minifier": "^4.0.0",
+    "web-resource-inliner": "^5.0.0",
+    "xml2js": "^0.4.23"
+  }
+}
