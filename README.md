@@ -9,6 +9,7 @@ There are two parts of Phonemote.
 
 #### PhonemoteDesktop
 - [ ] PowerPoint Interop (current WIP)
+- [ ] Modular System for Interops (Views, Commands, etc.)
 - [ ] Interop with some websites
 - [ ] Interop with other programs
 - [ ] Replace GUI to give users information
