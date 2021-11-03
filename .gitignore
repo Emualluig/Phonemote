@@ -356,7 +356,8 @@ MigrationBackup/
 
 # Do not include node-specific files
 html/node_modules
-html/dist/
+html/dist
+html/dist/*
 html/package-lock.json
 # Include SingleWindow and SingleMacOS publish profile
 !Properties/PublishProfiles/SingleWindows.pubxml
