@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-### WebviewCSharpTemplate modifications at the bottom
+### PhonemoteDesktop modifications at the bottom
 
 # User-specific files
 *.rsuser
@@ -352,7 +352,7 @@ MigrationBackup/
 .ionide/
 
 
-### WebviewCSharpTemplate modifications
+### PhonemoteDesktop modifications
 
 # Do not include node-specific files
 html/node_modules
@@ -361,5 +361,3 @@ html/package-lock.json
 # Include SingleWindow and SingleMacOS publish profile
 !Properties/PublishProfiles/SingleWindows.pubxml
 !Properties/PublishProfiles/SingleMacOS.pubxml
-# Don't include PDFs
-*.pdf

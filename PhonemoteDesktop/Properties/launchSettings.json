@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PhonemoteDesktop": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

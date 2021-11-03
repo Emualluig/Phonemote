@@ -14,7 +14,6 @@ const disableRightClick = function() {
 }
 
 const disableDrag = function() {
-	console.log("[DEBUG] Disabled drag");
 
 	const classesToDisable = ["no-drag"];
 	const tagsToDisable = ["img"];
@@ -25,6 +24,14 @@ const disableDrag = function() {
 	for (let i = 0; i < elements.length; i++) {
 		elements[i].setAttribute("draggable", false);
 	}
-
-	console.log(elements);
 }
+
+// Wait for DOM to load before disabling drag
+document.addEventListener("DOMContentLoaded", function(event) {
+            
+    // Call this function to disable right click (in order to better simulate a native application)
+    disableRightClick();
+
+    // Call this function to disable drag on all elements with no-drag class
+    disableDrag();
+});

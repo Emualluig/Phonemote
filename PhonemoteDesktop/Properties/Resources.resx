@@ -59,12 +59,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="pageList" xml:space="preserve">
-    <value>index,view1</value>
+    <value>index</value>
   </data>
   <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\html\dist\index.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="view1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\html\dist\view1.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
