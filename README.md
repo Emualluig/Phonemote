@@ -3,7 +3,7 @@
 
 There are two parts of Phonemote. 
  - PhonemoteDesktop which interops with many different desktop programs (Backend in C#, frontend in HTML+JS+CSS).
- - PhonemoteMobile allows users to control desktop program via a phone by connecting to PhonemoteDesktop (React app).
+ - PhonemoteMobile (React App) allows users to control desktop program via a phone by connecting to PhonemoteDesktop (Webview).
 
 ### TODO list:
 
@@ -27,7 +27,6 @@ Only works on Windows
 Requires Assemblies (office, powerpoint, etc.) for certain interops to work.
 Currently requires:
  - Powerpoint Interop:
-   - Interop.Microsoft.Office.Core
    - Interop.Microsoft.Office.Interop.PowerPoint
    - office.dll (Found in GAC_MSIL)
 
