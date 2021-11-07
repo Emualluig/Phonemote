@@ -16,7 +16,7 @@
     </head>
     <body class="no-select phonemote-container">
         <div class="interops-view">
-            <div class="interops-view-container">
+            <div class="interops-view-container" id="interop-container">
                 <div class="interops-item">
                     1
                 </div>
@@ -54,5 +54,45 @@
                 loading...
             </span>
         </div>
+        <script>
+            // ppi: PowerPoint Interop
+
+            let i = 0;
+            const generateItemHTML = function(pres) {
+                i++;
+                return `
+                    <div class="interops-item">
+                        ${i} : ${pres.Name}
+                    </div>
+                `;
+            }
+
+            const generateInteropItems = function(ppi_json) {
+
+                if (!ppi_json.isBusy) {
+                    let interopContainer = document.getElementById("interop-container");
+                    interopContainer.innerHTML = "";
+
+                    ppi_json.presentations.forEach(pres => {
+                        interopContainer.innerHTML += generateItemHTML(pres);
+                    });
+                }
+            };
+
+            const ppi_json = function() {
+                setTimeout(function() {
+
+                    cs_extern_get_ppi_json().then((reponse) => {
+                        generateInteropItems(reponse.result);
+                    }).catch((err) => {
+                        //console.log("error:" + err);
+                    });
+
+                    ppi_json();
+                }, 500);
+            };
+
+            ppi_json();
+        </script>
     </body>
 </html>

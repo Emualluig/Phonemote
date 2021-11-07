@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- interop.js sets the title of the window to that of the page -->
+    <title>Phonemote</title>
+
+    <!-- All stylesheets get inlined except if they have the attribute data-inline-ignore -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+    <script src="script/less_web_func.js"></script>
+    <link rel="stylesheet" href="css/less_web_func.css"/>
+    -->
+
+    <script src="script/interop.js"></script>
+    <script src="script/qrcode.min.js"></script>
+</head>
+<body class="no-select phonemote-container panel-container-body">
+    <div class="panel-container">
+        <section class="panel a">
+            <div style="width: 256px; height: 256px;" id="qrcode">
+
+            </div>
+        </section>
+        <section class="panel b">
+        </section>
+    </div>
+    <script>
+        (function() {
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: qrURL,
+                width: 256,
+                height: 256,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -10,7 +10,8 @@ namespace PhonemoteDesktop
 {
     class Server
     {
-        private string GetLocalIP {
+        private readonly WebSocketServer server = null;
+        private string GetLocalIPv6 {
             get {
                 IPAddress[] hostAddresses = Dns.GetHostAddresses(Dns.GetHostName());
                 foreach (var address in hostAddresses) {
@@ -23,41 +24,108 @@ namespace PhonemoteDesktop
                 return "ERROR";
             }
         }
-        public string location { get; }
-        public bool Error { get; }
-        private string _ErrorMessage = "";
-
-        public string GetErrorMessage() 
+        private string getLocalIPv4
         {
-            if (Error)
+            get
             {
-                return _ErrorMessage;
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+
+                return "ERROR";
             }
-            else 
+        }
+        public string location { get; }
+#if false
+        public EventHandler OnOpen;
+        private void Open(IWebSocketConnection socket)
+        {
+            OnOpen.Invoke(this, EventArgs.Empty);
+        }
+
+        public EventHandler OnClose;
+        private void Close(IWebSocketConnection socket)
+        {
+            OnClose.Invoke(this, EventArgs.Empty);
+        }
+
+        public EventHandler OnMessage;
+        private void Message(IWebSocketConnection socket, string message)
+        {
+            OnMessage.Invoke(this, EventArgs.Empty);
+        }
+
+        public EventHandler OnError;
+        private void Error(IWebSocketConnection socket, Exception error)
+        {
+            OnError.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Send()
+        {
+            server.
+        }
+#endif
+
+        //
+        public EventHandler OnOpen;
+        private void Open(IWebSocketConnection socket)
+        {
+            OnOpen.Invoke(this, EventArgs.Empty);
+        }
+
+        //
+        private List<IWebSocketConnection> SocketArray = new List<IWebSocketConnection>();
+        public void MessageAll(string message)
+        {
+            foreach (IWebSocketConnection socket in SocketArray)
             {
-                return "";
+                socket.Send(message);
             }
+        }
+
+        public EventHandler<string> OnMessage;
+        private void Message(IWebSocketConnection socket, string message)
+        {
+            OnMessage.Invoke(this, message);
         }
         public Server(string port = "8181")
         {
-            Error = false;
-         
-            string ip = GetLocalIP.Split("%")[0];
+#if false
+            // AFTER LOTS OF TESTING, IPv6 DOES NOT WORK
+            string ip = GetLocalIPv6.Split("%")[0];
             string full_ip = $"ws://[{ip}]:{port}";
+            full_ip = "ws://192.168.2.19:8181";
             location = full_ip;
+#endif
+            string IPv4 = $"ws://{getLocalIPv4}:8181";
+            location = IPv4;
 
-            var server = new WebSocketServer(full_ip);
+            server = new WebSocketServer(IPv4, false);
+
             server.Start(socket =>
             {
-                socket.OnOpen = () => Console.WriteLine("Open!");
-                socket.OnClose = () => Console.WriteLine("Close!");
+                socket.OnOpen = () =>
+                {
+                    SocketArray.Add(socket);
+                    Open(socket);
+                };
+                socket.OnClose = () =>
+                {
+                    SocketArray.RemoveAll(x => x == socket);
+                };
                 socket.OnMessage = (message) => 
                 {
-                    Console.WriteLine($"Message: {message}");
+                    Message(socket, message);
                 };
                 socket.OnError = (error) =>
                 {
-                    Console.WriteLine($"Error: {error}");
+                    
                 };
             });            
         }

@@ -1,1 +1,48 @@
-<!doctype html><html><head><title>Phonemote</title><style>body{margin:0}.interops-view{height:700px;width:100%;overflow:auto;z-index:0;background-color:#2b2c2e}.interops-view-container{display:flex;flex-direction:column;width:initial;height:fit-content}.interops-item{height:100px;width:initial;background-color:green;margin:10px}.status-bar{height:100px;width:100%;z-index:5;display:flex;align-items:center;justify-content:center}.status-bar.error{background-color:#dc143c;box-shadow:0 0 24px 0 rgba(0,0,0,.75) inset}.status-bar.warning{background-color:orange;box-shadow:0 0 12px 0 rgba(0,0,0,.5) inset}.status-bar.running{background-color:#32cd32}.status-bar.loading{background-color:#6495ed}.status{font-family:'Microsoft Sans Serif';font-size:2em}</style><script>const cs_initialize=function(){var i=document.getElementsByTagName("title")[0].text;cs_extern_initialize(i)},cs_navigate=function(i){cs_extern_navigate(i)};cs_initialize()</script></head><body class="no-select phonemote-container"><div class="interops-view"><div class="interops-view-container"><div class="interops-item">1</div><div class="interops-item">2</div><div class="interops-item">3</div><div class="interops-item">4</div><div class="interops-item">5</div><div class="interops-item">6</div><div class="interops-item">7</div><div class="interops-item">8</div><div class="interops-item">9</div><div class="interops-item">10</div></div></div><div class="status-bar loading"><span class="status">loading...</span></div></body></html>
+<!doctype html><html><head><title>Phonemote</title><style>body{margin:0}.interops-view{height:700px;width:100%;overflow:auto;z-index:0;background-color:#2b2c2e}.interops-view-container{display:flex;flex-direction:column;width:initial;height:fit-content}.interops-item{height:100px;width:initial;background-color:green;margin:10px}.status-bar{height:100px;width:100%;z-index:5;display:flex;align-items:center;justify-content:center}.status-bar.error{background-color:#dc143c;box-shadow:0 0 24px 0 rgba(0,0,0,.75) inset}.status-bar.warning{background-color:orange;box-shadow:0 0 12px 0 rgba(0,0,0,.5) inset}.status-bar.running{background-color:#32cd32}.status-bar.loading{background-color:#6495ed}.status{font-family:'Microsoft Sans Serif';font-size:2em}.panel-container{scroll-snap-type:y mandatory;max-height:800px;overflow-y:scroll;scrollbar-width:none}.panel-container::-webkit-scrollbar{display:none}.panel{scroll-snap-align:start;height:800px;width:100%}.panel.a{background-color:green}.panel.b{background-color:red}</style><script>const cs_initialize = function() {
+    const title = document.getElementsByTagName("title")[0].text;
+
+    cs_extern_initialize(title);
+}
+
+const cs_navigate = function(arg) {
+    cs_extern_navigate(arg);
+}
+
+cs_initialize();</script></head><body class="no-select phonemote-container"><div class="interops-view"><div class="interops-view-container" id="interop-container"><div class="interops-item">1</div><div class="interops-item">2</div><div class="interops-item">3</div><div class="interops-item">4</div><div class="interops-item">5</div><div class="interops-item">6</div><div class="interops-item">7</div><div class="interops-item">8</div><div class="interops-item">9</div><div class="interops-item">10</div></div></div><div class="status-bar loading"><span class="status">loading...</span></div><script>// ppi: PowerPoint Interop
+
+            let i = 0;
+            const generateItemHTML = function(pres) {
+                i++;
+                return `
+                    <div class="interops-item">
+                        ${i} : ${pres.Name}
+                    </div>
+                `;
+            }
+
+            const generateInteropItems = function(ppi_json) {
+
+                if (!ppi_json.isBusy) {
+                    let interopContainer = document.getElementById("interop-container");
+                    interopContainer.innerHTML = "";
+
+                    ppi_json.presentations.forEach(pres => {
+                        interopContainer.innerHTML += generateItemHTML(pres);
+                    });
+                }
+            };
+
+            const ppi_json = function() {
+                setTimeout(function() {
+
+                    cs_extern_get_ppi_json().then((reponse) => {
+                        generateInteropItems(reponse.result);
+                    }).catch((err) => {
+                        //console.log("error:" + err);
+                    });
+
+                    ppi_json();
+                }, 500);
+            };
+
+            ppi_json();</script></body></html>

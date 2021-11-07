@@ -57,3 +57,30 @@ body {
     font-family: 'Microsoft Sans Serif';
     font-size: 2em;
 }
+
+.panel-container-body {
+    
+}
+
+.panel-container {
+    scroll-snap-type: y mandatory;
+    max-height: 800px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.panel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.panel {
+    scroll-snap-align: start;
+    height: 800px;
+    width: 100%;
+}
+.panel.a {
+    background-color: green;
+}
+.panel.b {
+    background-color: red;
+}

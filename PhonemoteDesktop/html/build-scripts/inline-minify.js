@@ -67,7 +67,7 @@ fs.readdir(inputDir, { withFileTypes: true }, (err, result) => {
                     decodeEntities: true,
                     html5: true,
                     minifyCSS: true,
-                    minifyJS: true,
+                    minifyJS: false,
                     removeComments: true,
                     removeEmptyAttributes: true,
                     removeScriptTypeAttributes: true,

@@ -13,10 +13,7 @@ namespace PhonemoteDesktop
         private PowerPoint.Application PowerPointApplication = null;
 
         //
-        private Dictionary<string, PowerPoint.Presentation> Presentations = new Dictionary<string, PowerPoint.Presentation>();
-
-        //
-        private (int, int, int) Counts = (0, 0, 0);
+        private Dictionary<string, PowerPointObject> Presentations = new Dictionary<string, PowerPointObject>();
 
         //
         private bool _Loaded = false;
@@ -49,7 +46,14 @@ namespace PhonemoteDesktop
         }
 
         //
-        public EventHandler OnUpdate;
+        public class UpdateArguments : EventArgs
+        {
+            public bool isBusy { get; set; }
+            public string JSON { get; set; }
+        }
+
+        //
+        public EventHandler<UpdateArguments> OnUpdate;
 
         //
         private void Update(object source, System.Timers.ElapsedEventArgs args)
@@ -79,89 +83,56 @@ namespace PhonemoteDesktop
                 Console.WriteLine(e);
             }
 
+            // If the program is not busy, create dictionary of PowerPointObject's
             if (!isBusy) {
                 Presentations.Clear();
-                Counts = (PP_Ps.Count, PP_PVWs.Count, PP_SSWs.Count);
 
-                int id = 0;
-                foreach (PowerPoint.Presentation pre in PP_Ps)
+                foreach (PowerPoint.Presentation pp_pre in PP_Ps)
                 {
-                    Presentations.Add($"{id}::PP::{pre.Name}", pre);
-                    id++;
+                    PowerPointObject pre = new PowerPointObject(pp_pre);
+                    Presentations.Add($"{pre.Name}", pre);
                 }
 
                 for (int i = 1; i <= PP_PVWs.Count; i++) 
                 {
-                    PowerPoint.Presentation pre = PP_PVWs[i].Presentation;
-                    Presentations.Add($"{i}::PVW::{pre.Name}", pre);
+                    PowerPointObject pre = new PowerPointObject(PP_PVWs[i].Presentation);
+                    Presentations.Add($"{pre.Name}", pre);
                 }
-                
-                
+
+#if false
+    // This code is used to look up open slide shows, but it is now handled by the PowerPointObject instead
+
                 for (int i = 1; i <= PP_SSWs.Count; i++)
                 {
                     PowerPoint.Presentation pre = PP_SSWs[i].Presentation;
                     Presentations.Add($"{i}::SSW::{pre.Name}", pre);
                 }
-                
+#endif
             }
 
-            foreach ((string id, PowerPoint.Presentation pre) in Presentations)
-            {
-                Console.WriteLine("==========");
 
-                Console.WriteLine($">> id: {id}");
-                Console.WriteLine($">> name: {pre.Name}");
+            UpdateArguments UA = new UpdateArguments();
+            UA.isBusy = isBusy;
+            UA.JSON = JSONbuilder(isBusy);
+            OnUpdate.Invoke(this, UA);
+        }
 
-                //pre.SlideShowSettings.Run(); // Opedns the slideshow
-                //pre.SlideShowWindow.View.Next();
+        //
+        private string JSONbuilder(bool isBusy)
+        {
 
-                var fName = pre.FullName;
-                Console.WriteLine($"fName: {fName}");
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{{\"isBusy\":{isBusy.ToString().ToLower()},\"presentations\":");
 
-                /*
-                try
-                {
+            string presentationString = Newtonsoft.Json.JsonConvert.SerializeObject(Presentations.Select(keyValuePair => keyValuePair.Value)).ToString();
+            sb.Append(presentationString);
 
-                    var n = pre.SlideShowWindow.GetType().GetRuntimeProperty("Active");
+            sb.Append($"}}");
 
-                    //pre.SlideShowSettings.Run();
-                    //pre.SlideShowWindow.Activate();
+            string s = sb.ToString();
+            //Console.WriteLine($"{s}");
 
-                    var t = pre.SlideShowWindow.View;
-
-                    //pre.SlideShowWindow.Active = OfficeOverrides.MsoTriState.msoTrue;
-
-                    Console.WriteLine($">>>> TRUE {t.CurrentShowPosition}");
-                } catch (Exception e)
-                {
-                    //Console.WriteLine($">>>> Exception: {e}");
-                    Console.WriteLine($">>>> FALSE");
-                }
-                */
-
-                // Recall C:\Windows\assembly\GAC_MSIL\office\15.0.0.0__71e9bce111e9429c
-                //var p = pre.DisplayComments;
-
-                //var p = pre.SlideShowWindow.Active;
-
-                /*
-                foreach (PropertyInfo prop in props)
-                {
-                    object propValue = prop.GetValue(pre.Application, null);
-
-                    Console.WriteLine($">>>> prop: {propValue.ToString()}");
-                    // Do something with propValue
-                }
-                */
-
-                Console.WriteLine($">> active?: ");
-
-                
-
-                Console.WriteLine("==========");
-            }
-
-            OnUpdate.Invoke(this, EventArgs.Empty);
+            return s;
         }
 
         // 
@@ -179,19 +150,149 @@ namespace PhonemoteDesktop
                 timer.Start();
             }   
         }
+        public enum PowerPointCommands
+        {
+            Next,
+            Previous,
+            SlideShow,
+            Activate,
+            ExitSlideShow
+        }
+        public void PowerPointCommandHandler(string name, PowerPointCommands command)
+        {
+            if (Presentations.ContainsKey(name))
+            {
+                PowerPointObject PPO = Presentations[name];
+
+                switch (command)
+                {
+                    case PowerPointCommands.Next:
+                        PPO.SlideNext();
+                        break;
+                    case PowerPointCommands.Previous:
+                        PPO.SlidePrevious();
+                        break;
+                    case PowerPointCommands.SlideShow:
+                        PPO.ShowSlideShow();
+                        break;
+                    case PowerPointCommands.Activate:
+                        PPO.ShowSlideShow();
+                        break;
+                    case PowerPointCommands.ExitSlideShow:
+                        PPO.ExitSlideShow();
+                        break;
+                }
+            }
+        }
+
         private class PowerPointObject
         {
-            private string id;
-            private int currentSlide = 0;
-            private bool hasOpenSlideShow = false;
+            private string _id;
+            private string _name;
+            private readonly PowerPoint.Presentation presentation = null;
 
-            private void Init()
+            private bool hasOpenSlideShow = false;
+            private int currentSlide = 0;
+            private readonly PowerPoint.SlideShowWindow slideShowWindow = null;
+            private readonly PowerPoint.SlideShowView slideShowView = null;
+
+            public PowerPointObject(PowerPoint.Presentation pre)
             {
-                
+                presentation = pre;
+
+                _id = presentation.FullName;
+                _name = presentation.Name;
+
+                bool openSlideShow = true;
+                try
+                {
+                    slideShowWindow = presentation.SlideShowWindow;
+                }
+                catch (System.Runtime.InteropServices.COMException comExcep)
+                {
+                    openSlideShow = false;
+                }
+
+                if (openSlideShow)
+                {
+                    hasOpenSlideShow = openSlideShow;
+                    slideShowView = slideShowWindow.View;
+                    currentSlide = slideShowView.CurrentShowPosition;
+
+                    //Console.WriteLine($"{_name} has an open presentation, is on the {currentSlide} slide");
+                }
+                else
+                {
+                    //Console.WriteLine($"{_name} does not have an open presentation");
+                }
             }
-            public PowerPointObject()
+
+            public void SlideMoveTo(int slideNumber)
             {
-                
+                if (hasOpenSlideShow) 
+                {
+                    slideShowView.GotoSlide(slideNumber);
+                    currentSlide = slideShowView.CurrentShowPosition;
+                }
+            }
+            public void SlideNext()
+            {
+                if (hasOpenSlideShow)
+                {
+                    slideShowView.Next();
+                    currentSlide = slideShowView.CurrentShowPosition;
+                }
+            }
+            public void SlidePrevious()
+            {
+                if (hasOpenSlideShow)
+                {
+                    slideShowView.Previous();
+                    currentSlide = slideShowView.CurrentShowPosition;
+                }
+            }
+            public void ShowSlideShow()
+            {
+                if (hasOpenSlideShow)
+                {
+                    // Bring to foreground
+                    slideShowWindow.Activate();
+                }
+                else 
+                {
+                    // Open slideshow and bring to foreground
+                    presentation.SlideShowSettings.Run();
+                    hasOpenSlideShow = true;
+                }
+            }
+            public void ExitSlideShow()
+            {
+                if (hasOpenSlideShow) 
+                {
+                    slideShowView.Exit();
+                }
+            }
+
+            public string Name
+            {
+                get
+                {
+                    return _name;
+                }
+            }
+            public bool HasSlideShowOpen
+            {
+                get
+                {
+                    return hasOpenSlideShow;
+                }
+            }
+            public int CurrentSlide
+            {
+                get 
+                {
+                    return currentSlide;
+                }
             }
         }
     }
