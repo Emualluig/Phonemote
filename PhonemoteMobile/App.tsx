@@ -1,11 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, TouchableOpacity, TouchableOpacityBase, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons'; // More about icons: https://docs.expo.dev/guides/icons/
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Listbox } from '@headlessui/react'
 
 const Stack = createNativeStackNavigator();
 
