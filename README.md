@@ -1,6 +1,7 @@
 # Phonemote
  Control desktop applications from your phone
 
+
 Phonemote is currently in very early development.
 
 Phonemote currently works only with PowerPoint in a limit capacity.
@@ -20,19 +21,19 @@ PhonemoteMobile scans the QR code and this connects Mobile to Desktop.
 PhonemoteMobile can now control the PowerPoint presentation.
 
 ### Short Term TODO
- - [] More Stable Connection
- - [] More Stable PowerPoint Interop (It sometimes crashes on opening new presentations and other events)
- - [] More PowerPoint Controls on PhonemoteMobile (currently it only has 'next slide')
- - [] Better communication of commands between Mobile and Desktop
- - [] Ability to select between multiple PowerPoints
- - [] Better GUIs
- - [] Documentation and Comments
+ - [ ] More Stable Connection
+ - [ ] More Stable PowerPoint Interop (It sometimes crashes on opening new presentations and other events)
+ - [ ] More PowerPoint Controls on PhonemoteMobile (currently it only has 'next slide')
+ - [ ] Better communication of commands between Mobile and Desktop
+ - [ ] Ability to select between multiple PowerPoints
+ - [ ] Better GUIs
+ - [ ] Documentation and Comments
 
 ### Long Term TODO
- - [] Display Available Interop on PhonemoteDesktop
- - [] More Interops
- - [] Better GUIs
- - [] Documentation and Comments
+ - [ ] Display Available Interop on PhonemoteDesktop
+ - [ ] More Interops
+ - [ ] Better GUIs
+ - [ ] Documentation and Comments
 
 ### Requirements:
 
