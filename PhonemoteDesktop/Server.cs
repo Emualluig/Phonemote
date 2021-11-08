@@ -100,7 +100,6 @@ namespace PhonemoteDesktop
             // AFTER LOTS OF TESTING, IPv6 DOES NOT WORK
             string ip = GetLocalIPv6.Split("%")[0];
             string full_ip = $"ws://[{ip}]:{port}";
-            full_ip = "ws://192.168.2.19:8181";
             location = full_ip;
 #endif
             string IPv4 = $"ws://{getLocalIPv4}:8181";

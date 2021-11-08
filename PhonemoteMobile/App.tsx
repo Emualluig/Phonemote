@@ -33,18 +33,17 @@ function ConnectScreen({ navigation }: {navigation: any}) {
     }
   };
 
+  
   if (hasPermission === false) {
-    //return (<Text>Hello</Text>)
-    navigation.navigate('ControllerScreen', {
-      url: "ws://192.168.2.19:8181"
-    });
-
-    /*
+    // Will have to enter IP instead
     handleBarCodeScanned({
       type: "hi",
-      data: "ws://[fe80::90a5:d65c:c6c2:33cb]:8181",
+      data: "IP",
     });
-    */
+
+    return (
+      <Text>WIP</Text>
+    );
   }
   
 
