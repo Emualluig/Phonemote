@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <ApplicationIcon />
+    <TargetFramework>net6.0</TargetFramework>
     <StartupObject />
   </PropertyGroup>
 
@@ -18,6 +17,10 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
       <Private>true</Private>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icon1.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,12 +52,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="html\src\assets\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    <ApplicationIcon>Resources\Icon1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
