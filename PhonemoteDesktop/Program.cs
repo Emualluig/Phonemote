@@ -40,6 +40,7 @@ namespace PhonemoteDesktop
                 
             }
 
+            // REWRITE POWERPOINT INTEROP TO USE EVENTS
             
             WebViewContainer webview = new WebViewContainer("initialize_page", $"window.qrURL = \"{location}\";");
             webview.AddBind("cs_extern_initialize", (id, f_args) => {
