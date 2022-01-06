@@ -1,10 +1,18 @@
 # Phonemote
  Control desktop applications from your phone
 
+### Current status
 
-Phonemote is currently in very early development.
+Development will continue as soon as I have more free time since I really enjoy this project.
 
-Phonemote currently works only with PowerPoint in a limit capacity.
+Phonemote is currently in very early development. Many features
+
+Currently PhonemoteMobile and PhonemoteDesktop can connect to eachother by scanning a single QR code. 
+
+PhonemoteMobile currently only has the 'next' button implemented for slideshows.
+
+
+### PhonemoteDesktop vs PhonemoteMobile
 
 There are two parts of Phonemote. 
  - PhonemoteDesktop which interops with many different desktop programs (Backend in C#, frontend in HTML+JS+CSS).
@@ -14,7 +22,7 @@ There are two parts of Phonemote.
 
 PhonemoteDesktop detects if PowerPoint is installed and obtains a list of all open presentations.
 
-PhonemoteDesktop then creates a server and displays on the GUI a QR cpde for PhonemoteMobile to scan.
+PhonemoteDesktop then creates a server and displays on the GUI as QR code for PhonemoteMobile to scan.
 
 PhonemoteMobile scans the QR code and this connects Mobile to Desktop.
 
