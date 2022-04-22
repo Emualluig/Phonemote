@@ -5,11 +5,13 @@
 
 Development will continue as soon as I have more free time since I really enjoy this project.
 
-Phonemote is currently in very early development. Many features
+Phonemote is currently in very early development. Many features are currently un-implemented. 
+
+The goal of this project is to eventually have a phone app that can control a desktop computer like a remote control.
 
 Currently PhonemoteMobile and PhonemoteDesktop can connect to eachother by scanning a single QR code. 
 
-PhonemoteMobile currently only has the 'next' button implemented for slideshows.
+PhonemoteMobile currently only works on powerpoint and only has the 'next' button implemented for slideshows.
 
 
 ### PhonemoteDesktop vs PhonemoteMobile
