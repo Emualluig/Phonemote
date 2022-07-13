@@ -11,7 +11,7 @@ The goal of this project is to eventually have a phone app that can control a de
 
 Currently PhonemoteMobile and PhonemoteDesktop can connect to eachother by scanning a single QR code. 
 
-PhonemoteMobile currently only works on powerpoint and only has the 'next' button implemented for slideshows.
+PhonemoteMobile currently only works on powerpoint.
 
 
 ### PhonemoteDesktop vs PhonemoteMobile
@@ -33,9 +33,9 @@ PhonemoteMobile can now control the PowerPoint presentation.
 ### Short Term TODO
  - [ ] More Stable Connection
  - [ ] More Stable PowerPoint Interop (It sometimes crashes on opening new presentations and other events)
- - [ ] More PowerPoint Controls on PhonemoteMobile (currently it only has 'next slide')
+ - [ ] More PowerPoint Controls on PhonemoteMobile
  - [ ] Better communication of commands between Mobile and Desktop
- - [ ] Ability to select between multiple PowerPoints
+ - [ ] Better ability to select between multiple PowerPoints
  - [ ] Better GUIs
  - [ ] Documentation and Comments
 
