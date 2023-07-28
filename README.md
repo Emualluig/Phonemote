@@ -1,7 +1,7 @@
 # Phonemote
  Control desktop applications from your phone.
 
- Currently can only control PowerPoint presentation. Bring your presentations to the next level without buying any expensive gear!
+Can control PowerPoint presentation from your phone. Bring your presentations to the next level without buying any expensive gear!
 
 ### PhonemoteDesktop vs PhonemoteMobile
 
