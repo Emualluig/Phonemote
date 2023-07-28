@@ -19,6 +19,10 @@ PhonemoteMobile scans the QR code and this connects Mobile to Desktop.
 
 PhonemoteMobile can now control the PowerPoint presentation.
 
+### Demos:
+
+Coming soon!
+
 ### Requirements:
 
 Only works on Windows
